@@ -55,7 +55,7 @@ It had:
 ## 📦 Installation & Usage
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/elixir_6502.git
+git clone https://github.com/dhippley/elixir_6502.git
 cd elixir_6502
 mix deps.get
 mix test
