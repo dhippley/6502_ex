@@ -36,26 +36,92 @@ It had:
 
 ---
 
-## ✨ Features (Planned & WIP)
+## ✨ Features
 
-- [x] CPU state and register modeling
-- [x] Basic memory map and access
-- [ ] Instruction decoding
-- [ ] Instruction execution
-- [ ] Addressing mode resolution
-- [ ] Cycle tracking
-- [ ] ROM loading support
-- [ ] Debugging tools (step/run, log, etc.)
-- [ ] Integration with Livebook / LiveView
+- [x] **GenServer-based Architecture** - CPU and Memory as concurrent processes
+- [x] **Complete CPU State Management** - All registers, flags, and timing
+- [x] **Full Memory Map** - 64KB addressable space with proper banking
+- [x] **Complete Instruction Set** - All 151 official 6502 instructions
+- [x] **All Addressing Modes** - 13 different addressing modes implemented
+- [x] **Accurate Flag Handling** - Proper status register behavior
+- [x] **Stack Operations** - Push/pop operations with proper stack pointer management
+- [x] **Cycle Timing** - Accurate instruction timing and page crossing penalties
+- [x] **ROM Loading** - Load programs from files or byte arrays
+- [x] **Debugging Tools** - Step execution, memory dumps, status inspection
+- [x] **Test Programs** - Built-in test programs and examples
 
 ---
 
-## 📦 Installation
-
-This is a work-in-progress project. To run locally:
+## 📦 Installation & Usage
 
 ```bash
 git clone https://github.com/YOUR_USERNAME/elixir_6502.git
 cd elixir_6502
 mix deps.get
-iex -S mix
+mix test
+```
+
+### Quick Start
+
+```elixir
+# Start the emulator
+{:ok, cpu} = Elixir6502.start()
+
+# Load a test program
+Elixir6502.load_test_program(cpu)
+Elixir6502.reset(cpu)
+
+# Execute step by step
+Elixir6502.step(cpu)
+Elixir6502.print_status(cpu)
+
+# Or run continuously
+Elixir6502.run(cpu)
+```
+
+### Interactive Demo
+
+Run the included demo script:
+
+```bash
+elixir demo.exs
+```
+
+This will demonstrate:
+- Loading and executing a simple program
+- Step-by-step debugging
+- Memory operations
+- Fibonacci sequence calculator
+- Complete CPU status monitoring
+
+### Testing
+
+```bash
+mix test
+```
+
+### Features Overview
+
+```elixir
+# CPU Management
+{:ok, cpu} = Elixir6502.start()
+Elixir6502.reset(cpu)
+Elixir6502.step(cpu)     # Execute one instruction
+Elixir6502.run(cpu)      # Start continuous execution
+Elixir6502.stop(cpu)     # Stop execution
+
+# Program Loading
+Elixir6502.load_program(cpu, [0xA9, 0x42, 0x00])  # Load bytes
+Elixir6502.load_file(cpu, "program.bin")           # Load from file
+Elixir6502.load_test_program(cpu)                  # Built-in test
+
+# Memory Operations
+Elixir6502.read_memory(cpu, 0x1000)
+Elixir6502.write_memory(cpu, 0x1000, 42)
+Elixir6502.dump_memory(cpu, 0x1000, 16)
+
+# Debugging
+Elixir6502.status(cpu)        # Get CPU state
+Elixir6502.print_status(cpu)  # Pretty print status
+Elixir6502.set_pc(cpu, 0x600) # Set program counter
+```
